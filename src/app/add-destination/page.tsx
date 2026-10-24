@@ -26,7 +26,7 @@ const CATEGORIES = [
   "Honeymoon",
 ] as const;
 
-interface PackageFormState {
+export interface PackageFormState {
   name: string;
   country: string;
   category: string | null;

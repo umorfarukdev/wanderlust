@@ -7,9 +7,11 @@ import {
   CalendarDays,
   Check,
   MapPin,
-  Pencil,
   Star,
 } from "lucide-react";
+import EditDestinationModal from "@/components/destinations/EditDestinationModal";
+import IDestination from "@/type/destinationsType";
+import DeleteDestinationModal from "@/components/destinations/DeleteDestinationModal";
 
 // The API doesn't have a highlights field yet, so we turn the
 // description clauses into bullet points: "Relax on Bali's beaches,
@@ -33,7 +35,7 @@ const DestinationDetailsPage = async ({
   const { id } = await params;
 
   const res = await fetch(`http://localhost:8000/destination/${id}`);
-  const destination = await res.json();
+  const destination: IDestination = await res.json();
   console.log(destination);
 
 
@@ -52,20 +54,8 @@ const DestinationDetailsPage = async ({
         </Link>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/add-destination"
-            className="flex h-9 items-center gap-2 rounded-md border border-border bg-white px-4 text-sm font-medium hover:bg-muted"
-          >
-            <Pencil className="size-3.5" />
-            Edit
-          </Link>
-          <Link
-            href="/destinations"
-            className="flex h-9 items-center gap-2 rounded-md border border-red-300 bg-white px-4 text-sm font-medium text-red-500 hover:bg-red-50"
-          >
-            <Ban className="size-3.5" />
-            Cancel
-          </Link>
+          <EditDestinationModal destination={destination} />
+          <DeleteDestinationModal destination={destination}></DeleteDestinationModal>
         </div>
       </div>
 
